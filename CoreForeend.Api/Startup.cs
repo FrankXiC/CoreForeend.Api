@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreBackend.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,8 +31,8 @@ namespace CoreForeend.Api
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
+            services.AddOptions();
+            services.Configure<Connection>(Configuration.GetSection("WebApi"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -47,7 +48,7 @@ namespace CoreForeend.Api
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
