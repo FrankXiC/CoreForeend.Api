@@ -25,3 +25,4 @@ namespace CoreForeend.Api.Pages
         }
     }
 }
+
